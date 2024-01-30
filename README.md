@@ -17,7 +17,7 @@
 
 下面的示例均在 Mac M1 芯片中运行，其他平台请自行适配。
 
-# 2. 2. Rust 交叉编译配置
+# 2. Rust 交叉编译配置
 Rust 默认支持编译的平台包含 iOS，Android，Windows，Linux ；不支持鸿蒙架构
 
 所以需要先把鸿蒙架构给配置上，才能保证 Rust 正常生成鸿蒙架构的 .a 
@@ -74,9 +74,9 @@ DevEco-Studio > Preferences > SDK > Location
 
 下面为每个脚本的内容
 
-clang/sysroot 两个前面是 鸿蒙 SDK 本地路径，如果本地路径和文档不一致，请按需改动
+**`clang/sysroot` 两个前面是 鸿蒙 SDK 本地路径**，如果本地路径和文档不一致，请按需改动
 
-target 参数对应的 Cpu 架构，固定值
+**`target` 参数对应的 Cpu 架构**，固定值
 
 **Waring：注意此处的路径有 `~/` 开头的绝对路径（Rust 编译的时候会直接使用该值，必须为绝对路径）**
 
@@ -178,7 +178,7 @@ linker  = "Library/Huawei/Sdk/armv7-unknown-linux-ohos-clang.sh"
 
 [target.x86_64-unknown-linux-ohos]
 ar = "Library/Huawei/Sdk/openharmony/9/native/llvm/bin/llvm-ar"
-linker  = "Library/Huawei/Sdk/x86_64-unknown-linux-ohos-clang.sh"%
+linker  = "Library/Huawei/Sdk/x86_64-unknown-linux-ohos-clang.sh"
 ```
 
 # 3. Rust 生成鸿蒙架构的 .a 和 C 头文件
@@ -265,7 +265,7 @@ cargo build -Zbuild-std --release --target armv7-unknown-linux-ohos --verbose
 cargo build -Zbuild-std --release --target x86_64-unknown-linux-ohos --verbose
 ```
 
-编译出来的 .a 路径
+编译出来的 .a 文件路径如下
 
 ```shell
 ➜  tree target -L 4
@@ -325,7 +325,7 @@ cbindgen --config cbindgen.toml --crate MyRustLib --output my_rust_lib.h
 uint32_t rust_add(uint32_t a, uint32_t b);
 ```
 
-## 3.4 .a 和 C 头文件位置
+## 3.4 .a 和 C 头文件在 Rust 项目中的位置
 
 ![](./figures/a-header-location.png)
 
@@ -408,6 +408,8 @@ target_link_libraries(entry PRIVATE rust_lib)
 
 ```cpp
 // hello.cpp
+
+#include "my_rust_lib.h"
 
 static napi_value Add(napi_env env, napi_callback_info info)
 {
