@@ -14,6 +14,7 @@
     * 开发工具 RustRover-EAP ：https://www.jetbrains.com/rust/
 * 可以运行鸿蒙项目
     * 开发工具 DevEco-Studio ： https://developer.harmonyos.com/cn/develop/deveco-studio/#download
+    * 鸿蒙 C++ 编译（文档 5.5）：https://github.com/loginSin/HarmonyosRustDemo
 
 下面的示例均在 Mac M1 芯片中运行，其他平台请自行适配。
 
